@@ -29,8 +29,8 @@ def GetWbData(params, country = 'all', ind_type = 'indicator', indicator = ''):
     for page in range(1, pages + 1):
         params['page'] = page
         res = requests.get(url, params).json()
-        lst.append(res[1]) # change to extend and I can skip the flattening part!
+        lst.extend(res[1])
     
-    df = pd.json_normalize([r for d in lst for r in d])
+    df = pd.json_normalize(lst)
 
     return df
